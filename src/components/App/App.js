@@ -18,10 +18,10 @@ function App() {
             className="popup__form popup__form_type_edit"
             method="post"
             name="edit"
-            novalidate
+            noValidate
           >
             <p className="popup__field">
-              <label className="visually-hidden" for="name-input">
+              <label className="visually-hidden" htmlFor="name-input">
                 Имя
               </label>
               <input
@@ -29,14 +29,14 @@ function App() {
                 id="name-input"
                 type="text"
                 name="name"
-                minlength="2"
-                maxlength="40"
+                minLength="2"
+                maxLength="40"
                 required
               />
               <span className="name-input-error popup__error"></span>
             </p>
             <p className="popup__field">
-              <label className="visually-hidden" for="about-input">
+              <label className="visually-hidden" htmlFor="about-input">
                 Вид деятельности
               </label>
               <input
@@ -44,8 +44,8 @@ function App() {
                 id="about-input"
                 type="text"
                 name="about"
-                minlength="2"
-                maxlength="200"
+                minLength="2"
+                maxLength="200"
                 required
               />
               <span className="about-input-error popup__error"></span>
@@ -68,10 +68,10 @@ function App() {
             className="popup__form popup__form_type_add"
             method="post"
             name="add"
-            novalidate
+            noValidate
           >
             <p className="popup__field">
-              <label className="visually-hidden" for="place-input">
+              <label className="visually-hidden" htmlFor="place-input">
                 Название места
               </label>
               <input
@@ -80,14 +80,14 @@ function App() {
                 type="text"
                 name="place"
                 placeholder="Название"
-                minlength="2"
-                maxlength="30"
+                minLength="2"
+                maxLength="30"
                 required
               />
               <span className="place-input-error popup__error"></span>
             </p>
             <p className="popup__field">
-              <label className="visually-hidden" for="link-input">
+              <label className="visually-hidden" htmlFor="link-input">
                 Ссылка
               </label>
               <input
@@ -118,10 +118,10 @@ function App() {
             className="popup__form popup__form_type_update-avatar"
             method="patch"
             name="update-avatar"
-            novalidate
+            noValidate
           >
             <p className="popup__field">
-              <label className="visually-hidden" for="avatar-link-input">
+              <label className="visually-hidden" htmlFor="avatar-link-input">
                 Ссылка
               </label>
               <input
