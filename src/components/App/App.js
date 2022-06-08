@@ -1,54 +1,16 @@
 import '../../index.css';
-import headerLogo from '../../images/header/logo.svg';
+
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
     <div className="page index-page">
-      <header className="index-page__section header">
-        <img
-          className="header__logo"
-          src={headerLogo}
-          alt="Логотип сайта «Место»"
-        />
-      </header>
-      <main className="index-page__section content">
-        <section className="profile" aria-label="Описание профиля">
-          <button
-            className="button profile__update-button"
-            type="button"
-            aria-label="Обновить фото профиля"
-          >
-            <img
-              className="profile__photo"
-              src="https://dummyimage.com/120"
-              alt="Фото профиля"
-            />
-          </button>
-          <div className="profile__info">
-            <h1 className="profile__name">Загрузка...</h1>
-            <p className="profile__about">Загрузка...</p>
-          </div>
-          <button
-            className="button profile__edit-button"
-            type="button"
-            aria-label="Редактировать профиль"
-          ></button>
-          <button
-            className="button profile__add-button"
-            type="button"
-            aria-label="Добавить место"
-          ></button>
-        </section>
-        <section
-          className="content__places places"
-          aria-label="Посещенные места"
-        >
-          <ul className="places__list"></ul>
-        </section>
-      </main>
-      <footer className="index-page__section footer">
-        <p className="footer__text">&copy; 2022 Mesto Russia</p>
-      </footer>
+      <Header></Header>
+      <Main></Main>
+      <Footer></Footer>
+
       <div className="popup popup_type_edit">
         <div className="popup__container">
           <h2 className="popup__title">Редактировать профиль</h2>
