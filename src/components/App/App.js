@@ -3,6 +3,7 @@ import '../../index.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 function App() {
   return (
@@ -11,15 +12,11 @@ function App() {
       <Main></Main>
       <Footer></Footer>
 
-      <div className="popup popup_type_edit">
-        <div className="popup__container">
-          <h2 className="popup__title">Редактировать профиль</h2>
-          <form
-            className="popup__form popup__form_type_edit"
-            method="post"
-            name="edit"
-            noValidate
-          >
+      <PopupWithForm
+        name="edit"
+        title="Редактировать профиль"
+        children={
+          <>
             <p className="popup__field">
               <label className="visually-hidden" htmlFor="name-input">
                 Имя
@@ -53,23 +50,15 @@ function App() {
             <button className="button popup__submit-button" type="submit">
               Сохранить
             </button>
-          </form>
-          <button
-            className="button popup__close-button"
-            type="button"
-            aria-label="Закрыть форму"
-          ></button>
-        </div>
-      </div>
-      <div className="popup popup_type_add">
-        <div className="popup__container">
-          <h2 className="popup__title">Новое место</h2>
-          <form
-            className="popup__form popup__form_type_add"
-            method="post"
-            name="add"
-            noValidate
-          >
+          </>
+        }
+      ></PopupWithForm>
+
+      <PopupWithForm
+        name="add"
+        title="Новое место"
+        children={
+          <>
             <p className="popup__field">
               <label className="visually-hidden" htmlFor="place-input">
                 Название места
@@ -103,23 +92,15 @@ function App() {
             <button className="button popup__submit-button" type="submit">
               Создать
             </button>
-          </form>
-          <button
-            className="button popup__close-button"
-            type="button"
-            aria-label="Закрыть форму"
-          ></button>
-        </div>
-      </div>
-      <div className="popup popup_type_update-avatar">
-        <div className="popup__container">
-          <h2 className="popup__title">Обновить аватар</h2>
-          <form
-            className="popup__form popup__form_type_update-avatar"
-            method="patch"
-            name="update-avatar"
-            noValidate
-          >
+          </>
+        }
+      ></PopupWithForm>
+
+      <PopupWithForm
+        name="update-avatar"
+        title="Обновить аватар"
+        children={
+          <>
             <p className="popup__field">
               <label className="visually-hidden" htmlFor="avatar-link-input">
                 Ссылка
@@ -137,27 +118,22 @@ function App() {
             <button className="button popup__submit-button" type="submit">
               Сохранить
             </button>
-          </form>
-          <button
-            className="button popup__close-button"
-            type="button"
-            aria-label="Закрыть форму"
-          ></button>
-        </div>
-      </div>
-      <div className="popup popup_type_submit">
-        <div className="popup__container">
-          <h2 className="popup__title">Вы уверены?</h2>
-          <button className="button popup__submit-button" type="submit">
-            Да
-          </button>
-          <button
-            className="button popup__close-button"
-            type="button"
-            aria-label="Закрыть форму"
-          ></button>
-        </div>
-      </div>
+          </>
+        }
+      ></PopupWithForm>
+
+      <PopupWithForm
+        name="submit"
+        title="Вы уверены?"
+        children={
+          <>
+            <button className="button popup__submit-button" type="submit">
+              Да
+            </button>
+          </>
+        }
+      ></PopupWithForm>
+
       <div className="popup popup_darker popup_type_enlarge">
         <figure className="popup__image-container">
           <button
