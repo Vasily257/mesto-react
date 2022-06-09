@@ -9,9 +9,25 @@ import PopupWithImage from '../PopupWithImage/PopupWithImage';
 function App() {
   return (
     <div className="page index-page">
-      <Header></Header>
-      <Main></Main>
-      <Footer></Footer>
+      <Header />
+      <Main
+        onEditProfile={() => {
+          document
+            .querySelector('.popup_type_edit')
+            .classList.add('popup_opened');
+        }}
+        onAddPlace={() => {
+          document
+            .querySelector('.popup_type_add')
+            .classList.add('popup_opened');
+        }}
+        onEditAvatar={() => {
+          document
+            .querySelector('.popup_type_update-avatar')
+            .classList.add('popup_opened');
+        }}
+      />
+      <Footer />
 
       <PopupWithForm
         name="edit"
@@ -53,7 +69,7 @@ function App() {
             </button>
           </>
         }
-      ></PopupWithForm>
+      />
 
       <PopupWithForm
         name="add"
@@ -95,7 +111,7 @@ function App() {
             </button>
           </>
         }
-      ></PopupWithForm>
+      />
 
       <PopupWithForm
         name="update-avatar"
@@ -121,7 +137,7 @@ function App() {
             </button>
           </>
         }
-      ></PopupWithForm>
+      />
 
       <PopupWithForm
         name="submit"
@@ -133,9 +149,9 @@ function App() {
             </button>
           </>
         }
-      ></PopupWithForm>
+      />
 
-      <PopupWithImage></PopupWithImage>
+      <PopupWithImage />
     </div>
   );
 }

@@ -1,21 +1,15 @@
-export default function Main() {
-  function handleEditAvatarClick() {
-    document
-      .querySelector('.popup_type_update-avatar')
-      .classList.add('popup_opened');
-  }
+import { useEffect, useState } from 'react';
 
-  function handleEditProfileClick() {
-    document
-      .querySelector('.popup_form_type_edit')
-      .classList.add('popup_opened');
-  }
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
 
-  function handleAddPlaceClick() {
-    document
-      .querySelector('.popup_form_type_add')
-      .classList.add('popup_opened');
-  }
+  useEffect(() => {
+    isEditProfilePopupOpen && onEditProfile();
+    isAddPlacePopupOpen && onAddPlace();
+    isEditAvatarPopupOpen && onEditAvatar();
+  });
 
   return (
     <main className="index-page__section content">
@@ -24,7 +18,9 @@ export default function Main() {
           className="button profile__update-button"
           type="button"
           aria-label="Обновить фото профиля"
-          onClick={handleEditAvatarClick}
+          onClick={() => {
+            setEditAvatarPopupOpen(true);
+          }}
         >
           <img
             className="profile__photo"
@@ -40,13 +36,17 @@ export default function Main() {
           className="button profile__edit-button"
           type="button"
           aria-label="Редактировать профиль"
-          onClick={handleEditProfileClick}
+          onClick={() => {
+            setEditProfilePopupOpen(true);
+          }}
         ></button>
         <button
           className="button profile__add-button"
           type="button"
           aria-label="Добавить место"
-          onClick={handleAddPlaceClick}
+          onClick={() => {
+            setAddPlacePopupOpen(true);
+          }}
         ></button>
       </section>
       <section className="content__places places" aria-label="Посещенные места">
