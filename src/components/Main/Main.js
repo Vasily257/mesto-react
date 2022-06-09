@@ -1,16 +1,4 @@
-import { useEffect, useState } from 'react';
-
 export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
-
-  useEffect(() => {
-    isEditProfilePopupOpen && onEditProfile();
-    isAddPlacePopupOpen && onAddPlace();
-    isEditAvatarPopupOpen && onEditAvatar();
-  });
-
   return (
     <main className="index-page__section content">
       <section className="profile" aria-label="Описание профиля">
@@ -19,7 +7,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           type="button"
           aria-label="Обновить фото профиля"
           onClick={() => {
-            setEditAvatarPopupOpen(true);
+            onEditAvatar();
           }}
         >
           <img
@@ -37,7 +25,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           type="button"
           aria-label="Редактировать профиль"
           onClick={() => {
-            setEditProfilePopupOpen(true);
+            onEditProfile();
           }}
         ></button>
         <button
@@ -45,7 +33,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
           type="button"
           aria-label="Добавить место"
           onClick={() => {
-            setAddPlacePopupOpen(true);
+            onAddPlace();
           }}
         ></button>
       </section>

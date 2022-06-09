@@ -1,4 +1,10 @@
-export default function PopupWithForm({ name, title, children }) {
+export default function PopupWithForm({
+  name,
+  title,
+  isOpen,
+  onClose,
+  children,
+}) {
   return (
     <div className={`popup popup_type_${name}`}>
       <div className="popup__container">
@@ -14,6 +20,9 @@ export default function PopupWithForm({ name, title, children }) {
           className="button popup__close-button"
           type="button"
           aria-label="Закрыть форму"
+          onClick={() => {
+            onClose();
+          }}
         ></button>
       </div>
     </div>

@@ -5,26 +5,62 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import PopupWithImage from '../PopupWithImage/PopupWithImage';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+
+  function handleEditProfileClick() {
+    setIsEditProfilePopupOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlacePopupOpen(true);
+  }
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarPopupOpen(true);
+  }
+
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+  }
+
+  useEffect(() => {
+    isEditProfilePopupOpen &&
+      document.querySelector('.popup_type_edit').classList.add('popup_opened');
+
+    isAddPlacePopupOpen &&
+      document.querySelector('.popup_type_add').classList.add('popup_opened');
+
+    isEditAvatarPopupOpen &&
+      document
+        .querySelector('.popup_type_update-avatar')
+        .classList.add('popup_opened');
+
+    return () => {
+      document.querySelectorAll('.popup').forEach((popup) => {
+        popup.classList.remove('popup_opened');
+      });
+    };
+  });
+
   return (
     <div className="page index-page">
       <Header />
       <Main
         onEditProfile={() => {
-          document
-            .querySelector('.popup_type_edit')
-            .classList.add('popup_opened');
+          handleEditProfileClick();
         }}
         onAddPlace={() => {
-          document
-            .querySelector('.popup_type_add')
-            .classList.add('popup_opened');
+          handleAddPlaceClick();
         }}
         onEditAvatar={() => {
-          document
-            .querySelector('.popup_type_update-avatar')
-            .classList.add('popup_opened');
+          handleEditAvatarClick();
         }}
       />
       <Footer />
@@ -32,6 +68,8 @@ function App() {
       <PopupWithForm
         name="edit"
         title="Редактировать профиль"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
         children={
           <>
             <p className="popup__field">
@@ -74,6 +112,8 @@ function App() {
       <PopupWithForm
         name="add"
         title="Новое место"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
         children={
           <>
             <p className="popup__field">
@@ -116,6 +156,8 @@ function App() {
       <PopupWithForm
         name="update-avatar"
         title="Обновить аватар"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
         children={
           <>
             <p className="popup__field">
