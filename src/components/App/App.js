@@ -4,6 +4,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
+import PopupWithImage from '../PopupWithImage/PopupWithImage';
 
 function App() {
   return (
@@ -134,21 +135,7 @@ function App() {
         }
       ></PopupWithForm>
 
-      <div className="popup popup_darker popup_type_enlarge">
-        <figure className="popup__image-container">
-          <button
-            className="button popup__close-button"
-            type="button"
-            aria-label="Закрыть форму"
-          ></button>
-          <img
-            className="popup__image"
-            src="https://placekitten.com/200/300"
-            alt="Фотография места"
-          />
-          <figcaption className="popup__image-caption"></figcaption>
-        </figure>
-      </div>
+      <PopupWithImage></PopupWithImage>
     </div>
   );
 }
