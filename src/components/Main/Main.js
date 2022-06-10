@@ -17,19 +17,16 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
     document.querySelector('.profile__photo').src = userAvatar;
 
     api
-      .getUserInfo()
-      .then(({ name, about, avatar }) => {
+      .getInitialData()
+      .then((initialData) => {
+        const [{ name, about, avatar }, initialCardsData] = initialData;
+
         setUserName(name);
         setUserDescription(about);
         setUserAvatar(avatar);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
 
-    api
-      .getInitialCards()
-      .then((data) => {
         setCards(
-          data.map((item) => ({
+          initialCardsData.map((item) => ({
             id: item._id,
             name: item.name,
             link: item.link,
