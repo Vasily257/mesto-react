@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../utils/api';
+import Card from '../Card/Card';
 
 export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
   const [userName, setUserName] = useState('Загрузка...');
@@ -27,10 +28,17 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
     api
       .getInitialCards()
       .then((data) => {
-        setCards(data);
+        setCards(
+          data.map((item) => ({
+            id: item._id,
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+          }))
+        );
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [userName, userDescription, userAvatar, cards]);
+  }, [userName, userDescription, userAvatar]);
 
   return (
     <main className="index-page__section content">
@@ -72,41 +80,9 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
       </section>
       <section className="content__places places" aria-label="Посещенные места">
         <ul className="places__list">
-          {cards.map(({ _id, name, link, likes }) => {
-            return (
-              <li className="places__item place" key={_id}>
-                <button
-                  className="button place__delete-button"
-                  type="button"
-                  aria-label="Удалить элемент"
-                ></button>
-                <div className="place__image-container">
-                  <button
-                    className="button place__enlarge-button"
-                    type="button"
-                    aria-label="Увеличить изображение"
-                  >
-                    <img
-                      className="place__image"
-                      src={link}
-                      alt="Фотография места"
-                    />
-                  </button>
-                </div>
-                <div className="place__panel">
-                  <p className="place__title">{name}</p>
-                  <div className="place__like-container">
-                    <button
-                      className="button place__like-button"
-                      type="button"
-                      aria-label="Поставить отметку «Мне нравится»"
-                    ></button>
-                    <p className="place__like-counter">{likes.length}</p>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
+          {cards.map((cardElement) => (
+            <Card {...cardElement} key={cardElement.id} />
+          ))}
         </ul>
       </section>
     </main>
