@@ -84,6 +84,7 @@ function App() {
       <PopupWithForm
         name="edit"
         title="Редактировать профиль"
+        submitButtonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         children={
@@ -118,9 +119,6 @@ function App() {
               />
               <span className="about-input-error popup__error"></span>
             </p>
-            <button className="button popup__submit-button" type="submit">
-              Сохранить
-            </button>
           </>
         }
       />
@@ -128,6 +126,7 @@ function App() {
       <PopupWithForm
         name="add"
         title="Новое место"
+        submitButtonText="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         children={
@@ -162,9 +161,6 @@ function App() {
               />
               <span className="link-input-error popup__error"></span>
             </p>
-            <button className="button popup__submit-button" type="submit">
-              Создать
-            </button>
           </>
         }
       />
@@ -172,6 +168,7 @@ function App() {
       <PopupWithForm
         name="update-avatar"
         title="Обновить аватар"
+        submitButtonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         children={
@@ -190,9 +187,6 @@ function App() {
               />
               <span className="avatar-link-input-error popup__error"></span>
             </p>
-            <button className="button popup__submit-button" type="submit">
-              Сохранить
-            </button>
           </>
         }
       />
@@ -200,13 +194,8 @@ function App() {
       <PopupWithForm
         name="submit"
         title="Вы уверены?"
-        children={
-          <>
-            <button className="button popup__submit-button" type="submit">
-              Да
-            </button>
-          </>
-        }
+        submitButtonText="Да"
+        children={<></>}
       />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
