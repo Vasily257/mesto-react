@@ -30,14 +30,7 @@ export default function Main({
         setUserDescription(about);
         setUserAvatar(avatar);
 
-        setCards(
-          initialCardsData.map((item) => ({
-            id: item._id,
-            name: item.name,
-            link: item.link,
-            likes: item.likes,
-          }))
-        );
+        setCards(initialCardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, [userName, userDescription, userAvatar]);
@@ -85,7 +78,7 @@ export default function Main({
           {cards.map((cardElement) => (
             <Card
               {...cardElement}
-              key={cardElement.id}
+              key={cardElement._id}
               onCardClick={(currentCard) => {
                 onCardClick(currentCard);
               }}
