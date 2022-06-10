@@ -1,4 +1,4 @@
-export default function Card({ name, link, likes }) {
+export default function Card({ name, link, likes, onCardClick }) {
   return (
     <li className="places__item place">
       <button
@@ -11,6 +11,9 @@ export default function Card({ name, link, likes }) {
           className="button place__enlarge-button"
           type="button"
           aria-label="Увеличить изображение"
+          onClick={() => {
+            onCardClick({ name, link });
+          }}
         >
           <img className="place__image" src={link} alt="Фотография места" />
         </button>

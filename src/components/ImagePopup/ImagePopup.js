@@ -1,4 +1,4 @@
-export default function ImagePopup() {
+export default function ImagePopup({ card, onClose }) {
   return (
     <div className="popup popup_darker popup_type_enlarge">
       <figure className="popup__image-container">
@@ -6,13 +6,18 @@ export default function ImagePopup() {
           className="button popup__close-button"
           type="button"
           aria-label="Закрыть форму"
+          onClick={() => {
+            onClose();
+          }}
         ></button>
         <img
           className="popup__image"
-          src="https://placekitten.com/200/300"
+          src={card ? card.link : null}
           alt="Фотография места"
         />
-        <figcaption className="popup__image-caption"></figcaption>
+        <figcaption className="popup__image-caption">
+          {card ? card.name : null}
+        </figcaption>
       </figure>
     </div>
   );

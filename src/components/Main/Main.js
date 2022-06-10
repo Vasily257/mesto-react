@@ -2,7 +2,12 @@ import { useEffect, useState } from 'react';
 import { api } from '../../utils/api';
 import Card from '../Card/Card';
 
-export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
+export default function Main({
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+}) {
   const [userName, setUserName] = useState('Загрузка...');
   const [userDescription, setUserDescription] = useState('Загрузка...');
   const [userAvatar, setUserAvatar] = useState(
@@ -78,7 +83,13 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar }) {
       <section className="content__places places" aria-label="Посещенные места">
         <ul className="places__list">
           {cards.map((cardElement) => (
-            <Card {...cardElement} key={cardElement.id} />
+            <Card
+              {...cardElement}
+              key={cardElement.id}
+              onCardClick={(currentCard) => {
+                onCardClick(currentCard);
+              }}
+            />
           ))}
         </ul>
       </section>

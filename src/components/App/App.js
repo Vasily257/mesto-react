@@ -12,6 +12,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
+  const [selectedCard, setSelectedCard] = useState(null);
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
   }
@@ -24,10 +26,16 @@ function App() {
     setIsEditAvatarPopupOpen(true);
   }
 
+  function handleCardClick(currentCard) {
+    setSelectedCard(currentCard);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+
+    setSelectedCard(null);
   }
 
   useEffect(() => {
@@ -40,6 +48,11 @@ function App() {
     isEditAvatarPopupOpen &&
       document
         .querySelector('.popup_type_update-avatar')
+        .classList.add('popup_opened');
+
+    selectedCard &&
+      document
+        .querySelector('.popup_type_enlarge')
         .classList.add('popup_opened');
 
     return () => {
@@ -61,6 +74,9 @@ function App() {
         }}
         onEditAvatar={() => {
           handleEditAvatarClick();
+        }}
+        onCardClick={(currentCard) => {
+          handleCardClick(currentCard);
         }}
       />
       <Footer />
@@ -193,7 +209,7 @@ function App() {
         }
       />
 
-      <ImagePopup />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
   );
 }
