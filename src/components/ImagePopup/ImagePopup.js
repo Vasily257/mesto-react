@@ -1,4 +1,4 @@
-export default function PopupWithImage() {
+export default function ImagePopup() {
   return (
     <div className="popup popup_darker popup_type_enlarge">
       <figure className="popup__image-container">

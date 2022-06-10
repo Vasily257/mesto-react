@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
-import PopupWithImage from '../PopupWithImage/PopupWithImage';
+import ImagePopup from '../ImagePopup/ImagePopup';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -193,7 +193,7 @@ function App() {
         }
       />
 
-      <PopupWithImage />
+      <ImagePopup />
     </div>
   );
 }
