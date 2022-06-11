@@ -55,41 +55,38 @@ function App() {
         submitButtonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
-        children={
-          <>
-            <p className="popup__field">
-              <label className="visually-hidden" htmlFor="name-input">
-                Имя
-              </label>
-              <input
-                className="popup__input popup__input_place_up"
-                id="name-input"
-                type="text"
-                name="name"
-                minLength="2"
-                maxLength="40"
-                required
-              />
-              <span className="name-input-error popup__error"></span>
-            </p>
-            <p className="popup__field">
-              <label className="visually-hidden" htmlFor="about-input">
-                Вид деятельности
-              </label>
-              <input
-                className="popup__input popup__input_place_down"
-                id="about-input"
-                type="text"
-                name="about"
-                minLength="2"
-                maxLength="200"
-                required
-              />
-              <span className="about-input-error popup__error"></span>
-            </p>
-          </>
-        }
-      />
+      >
+        <p className="popup__field">
+          <label className="visually-hidden" htmlFor="name-input">
+            Имя
+          </label>
+          <input
+            className="popup__input popup__input_place_up"
+            id="name-input"
+            type="text"
+            name="name"
+            minLength="2"
+            maxLength="40"
+            required
+          />
+          <span className="name-input-error popup__error"></span>
+        </p>
+        <p className="popup__field">
+          <label className="visually-hidden" htmlFor="about-input">
+            Вид деятельности
+          </label>
+          <input
+            className="popup__input popup__input_place_down"
+            id="about-input"
+            type="text"
+            name="about"
+            minLength="2"
+            maxLength="200"
+            required
+          />
+          <span className="about-input-error popup__error"></span>
+        </p>
+      </PopupWithForm>
 
       <PopupWithForm
         name="add"
@@ -97,41 +94,38 @@ function App() {
         submitButtonText="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-        children={
-          <>
-            <p className="popup__field">
-              <label className="visually-hidden" htmlFor="place-input">
-                Название места
-              </label>
-              <input
-                className="popup__input popup__input_place_up"
-                id="place-input"
-                type="text"
-                name="place"
-                placeholder="Название"
-                minLength="2"
-                maxLength="30"
-                required
-              />
-              <span className="place-input-error popup__error"></span>
-            </p>
-            <p className="popup__field">
-              <label className="visually-hidden" htmlFor="link-input">
-                Ссылка
-              </label>
-              <input
-                className="popup__input popup__input_place_down"
-                id="link-input"
-                type="url"
-                name="link"
-                placeholder="Ссылка на картинку"
-                required
-              />
-              <span className="link-input-error popup__error"></span>
-            </p>
-          </>
-        }
-      />
+      >
+        <p className="popup__field">
+          <label className="visually-hidden" htmlFor="place-input">
+            Название места
+          </label>
+          <input
+            className="popup__input popup__input_place_up"
+            id="place-input"
+            type="text"
+            name="place"
+            placeholder="Название"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span className="place-input-error popup__error"></span>
+        </p>
+        <p className="popup__field">
+          <label className="visually-hidden" htmlFor="link-input">
+            Ссылка
+          </label>
+          <input
+            className="popup__input popup__input_place_down"
+            id="link-input"
+            type="url"
+            name="link"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <span className="link-input-error popup__error"></span>
+        </p>
+      </PopupWithForm>
 
       <PopupWithForm
         name="update-avatar"
@@ -139,32 +133,24 @@ function App() {
         submitButtonText="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-        children={
-          <>
-            <p className="popup__field">
-              <label className="visually-hidden" htmlFor="avatar-link-input">
-                Ссылка
-              </label>
-              <input
-                className="popup__input popup__input_place_up"
-                id="avatar-link-input"
-                type="url"
-                name="avatar-link"
-                placeholder="Ссылка на новый аватар"
-                required
-              />
-              <span className="avatar-link-input-error popup__error"></span>
-            </p>
-          </>
-        }
-      />
+      >
+        <p className="popup__field">
+          <label className="visually-hidden" htmlFor="avatar-link-input">
+            Ссылка
+          </label>
+          <input
+            className="popup__input popup__input_place_up"
+            id="avatar-link-input"
+            type="url"
+            name="avatar-link"
+            placeholder="Ссылка на новый аватар"
+            required
+          />
+          <span className="avatar-link-input-error popup__error"></span>
+        </p>
+      </PopupWithForm>
 
-      <PopupWithForm
-        name="submit"
-        title="Вы уверены?"
-        submitButtonText="Да"
-        children={<></>}
-      />
+      <PopupWithForm name="submit" title="Вы уверены?" submitButtonText="Да" />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
