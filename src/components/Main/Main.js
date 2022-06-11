@@ -42,9 +42,7 @@ export default function Main({
           className="button profile__update-button"
           type="button"
           aria-label="Обновить фото профиля"
-          onClick={() => {
-            onEditAvatar();
-          }}
+          onClick={onEditAvatar}
         >
           <img
             className="profile__photo"
@@ -60,17 +58,13 @@ export default function Main({
           className="button profile__edit-button"
           type="button"
           aria-label="Редактировать профиль"
-          onClick={() => {
-            onEditProfile();
-          }}
+          onClick={onEditProfile}
         ></button>
         <button
           className="button profile__add-button"
           type="button"
           aria-label="Добавить место"
-          onClick={() => {
-            onAddPlace();
-          }}
+          onClick={onAddPlace}
         ></button>
       </section>
       <section className="content__places places" aria-label="Посещенные места">
@@ -79,9 +73,7 @@ export default function Main({
             <Card
               {...cardElement}
               key={cardElement._id}
-              onCardClick={(currentCard) => {
-                onCardClick(currentCard);
-              }}
+              onCardClick={onCardClick}
             />
           ))}
         </ul>

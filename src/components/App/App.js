@@ -5,7 +5,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -42,18 +42,10 @@ function App() {
     <div className="page index-page">
       <Header />
       <Main
-        onEditProfile={() => {
-          handleEditProfileClick();
-        }}
-        onAddPlace={() => {
-          handleAddPlaceClick();
-        }}
-        onEditAvatar={() => {
-          handleEditAvatarClick();
-        }}
-        onCardClick={(currentCard) => {
-          handleCardClick(currentCard);
-        }}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
 
