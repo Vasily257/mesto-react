@@ -38,30 +38,6 @@ function App() {
     setSelectedCard(null);
   }
 
-  useEffect(() => {
-    isEditProfilePopupOpen &&
-      document.querySelector('.popup_type_edit').classList.add('popup_opened');
-
-    isAddPlacePopupOpen &&
-      document.querySelector('.popup_type_add').classList.add('popup_opened');
-
-    isEditAvatarPopupOpen &&
-      document
-        .querySelector('.popup_type_update-avatar')
-        .classList.add('popup_opened');
-
-    selectedCard &&
-      document
-        .querySelector('.popup_type_enlarge')
-        .classList.add('popup_opened');
-
-    return () => {
-      document.querySelectorAll('.popup').forEach((popup) => {
-        popup.classList.remove('popup_opened');
-      });
-    };
-  });
-
   return (
     <div className="page index-page">
       <Header />

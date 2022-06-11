@@ -1,6 +1,10 @@
 export default function ImagePopup({ card, onClose }) {
   return (
-    <div className="popup popup_darker popup_type_enlarge">
+    <div
+      className={`popup popup_darker popup_type_enlarge ${
+        card && 'popup_opened'
+      }`}
+    >
       <figure className="popup__image-container">
         <button
           className="button popup__close-button"
