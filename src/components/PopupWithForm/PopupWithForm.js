@@ -9,15 +9,15 @@ export default function PopupWithForm({
   return (
     <div className={`popup popup_type_${name}`}>
       <div className="popup__container">
-        <h2 className="popup__title">{`${title}`}</h2>
+        <h2 className="popup__title">{title}</h2>
         <form
           className={`popup__form popup__form_type_${name}`}
-          name={`${name}`}
+          name={name}
           noValidate
         >
           {children}
           <button className="button popup__submit-button" type="submit">
-            {`${submitButtonText}`}
+            {submitButtonText}
           </button>
         </form>
         <button
