@@ -12,11 +12,11 @@ export default function ImagePopup({ card, onClose }) {
         ></button>
         <img
           className="popup__image"
-          src={card ? card.link : null}
-          alt="Фотография места"
+          src={card && card.link}
+          alt={`Фотография: ${card && card.name}`}
         />
         <figcaption className="popup__image-caption">
-          {card ? card.name : null}
+          {card && card.name}
         </figcaption>
       </figure>
     </div>

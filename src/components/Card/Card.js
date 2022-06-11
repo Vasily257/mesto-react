@@ -15,7 +15,11 @@ export default function Card({ name, link, likes, onCardClick }) {
             onCardClick({ name, link });
           }}
         >
-          <img className="place__image" src={link} alt="Фотография места" />
+          <img
+            className="place__image"
+            src={link}
+            alt={`Фотография: ${name}`}
+          />
         </button>
       </div>
       <div className="place__panel">
