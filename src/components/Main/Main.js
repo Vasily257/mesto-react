@@ -17,10 +17,6 @@ export default function Main({
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    document.querySelector('.profile__name').textContent = userName;
-    document.querySelector('.profile__about').textContent = userDescription;
-    document.querySelector('.profile__photo').src = userAvatar;
-
     api
       .getInitialData()
       .then((initialData) => {
@@ -33,7 +29,7 @@ export default function Main({
         setCards(initialCardsData);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
-  }, [userName, userDescription, userAvatar]);
+  }, []);
 
   return (
     <main className="index-page__section content">
@@ -44,15 +40,11 @@ export default function Main({
           aria-label="Обновить фото профиля"
           onClick={onEditAvatar}
         >
-          <img
-            className="profile__photo"
-            src="https://dummyimage.com/120"
-            alt="Фото профиля"
-          />
+          <img className="profile__photo" src={userAvatar} alt="Фото профиля" />
         </button>
         <div className="profile__info">
-          <h1 className="profile__name">Загрузка...</h1>
-          <p className="profile__about">Загрузка...</p>
+          <h1 className="profile__name">{userName}</h1>
+          <p className="profile__about">{userDescription}</p>
         </div>
         <button
           className="button profile__edit-button"
