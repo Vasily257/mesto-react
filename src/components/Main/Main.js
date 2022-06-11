@@ -26,7 +26,14 @@ export default function Main({
         setUserDescription(about);
         setUserAvatar(avatar);
 
-        setCards(initialCardsData);
+        setCards(
+          initialCardsData.map((item) => ({
+            key: item._id,
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+          }))
+        );
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
@@ -62,11 +69,7 @@ export default function Main({
       <section className="content__places places" aria-label="Посещенные места">
         <ul className="places__list">
           {cards.map((cardElement) => (
-            <Card
-              {...cardElement}
-              key={cardElement._id}
-              onCardClick={onCardClick}
-            />
+            <Card {...cardElement} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>
