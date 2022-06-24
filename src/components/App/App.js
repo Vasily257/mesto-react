@@ -2,6 +2,8 @@ import '../../index.css';
 
 import { useState, useEffect } from 'react';
 
+import { InitialDataContext } from '../../contexts/InitialDataContext';
+
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
@@ -56,7 +58,6 @@ function App() {
       .then((resWithData) => {
         setInitialData(resWithData);
         const [{ name, about, avatar }, initialCardsData] = resWithData;
-
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
@@ -64,12 +65,16 @@ function App() {
   return (
     <div className="page index-page">
       <Header />
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-      />
+
+      <InitialDataContext.Provider value={initialData}>
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
+      </InitialDataContext.Provider>
+
       <Footer />
 
       <PopupWithForm
