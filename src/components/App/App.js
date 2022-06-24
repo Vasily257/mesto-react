@@ -13,14 +13,14 @@ import ImagePopup from '../ImagePopup/ImagePopup';
 import { api } from '../../utils/api';
 
 function App() {
-  const [initialData, setInitialData] = useState(
+  const [initialData, setInitialData] = useState([
     {
       name: 'Загрузка...',
       about: 'Загрузка...',
       avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
     },
-    []
-  );
+    [],
+  ]);
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
