@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../utils/api';
+import { useContext } from 'react';
+import { InitialDataContext } from '../../contexts/InitialDataContext';
 import Card from '../Card/Card';
 
 export default function Main({
@@ -8,35 +8,16 @@ export default function Main({
   onEditAvatar,
   onCardClick,
 }) {
-  const [userName, setUserName] = useState('Загрузка...');
-  const [userDescription, setUserDescription] = useState('Загрузка...');
-  const [userAvatar, setUserAvatar] = useState(
-    'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg'
-  );
+  const initialData = useContext(InitialDataContext);
 
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    api
-      .getInitialData()
-      .then((initialData) => {
-        const [{ name, about, avatar }, initialCardsData] = initialData;
-
-        setUserName(name);
-        setUserDescription(about);
-        setUserAvatar(avatar);
-
-        setCards(
-          initialCardsData.map((item) => ({
-            key: item._id,
-            name: item.name,
-            link: item.link,
-            likes: item.likes,
-          }))
-        );
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
+  const [{ name, about, avatar }, initialCardsData] = initialData;
+  
+  const cards = initialCardsData.map((item) => ({
+    key: item._id,
+    name: item.name,
+    link: item.link,
+    likes: item.likes,
+  }));
 
   return (
     <main className="index-page__section content">
@@ -47,11 +28,11 @@ export default function Main({
           aria-label="Обновить фото профиля"
           onClick={onEditAvatar}
         >
-          <img className="profile__photo" src={userAvatar} alt="Фото профиля" />
+          <img className="profile__photo" src={avatar} alt="Фото профиля" />
         </button>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
-          <p className="profile__about">{userDescription}</p>
+          <h1 className="profile__name">{name}</h1>
+          <p className="profile__about">{about}</p>
         </div>
         <button
           className="button profile__edit-button"

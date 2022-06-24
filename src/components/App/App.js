@@ -57,7 +57,6 @@ function App() {
       .getInitialData()
       .then((resWithData) => {
         setInitialData(resWithData);
-        const [{ name, about, avatar }, initialCardsData] = resWithData;
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
