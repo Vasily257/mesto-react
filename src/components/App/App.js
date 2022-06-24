@@ -2,7 +2,7 @@ import '../../index.css';
 
 import { useState, useEffect } from 'react';
 
-import { InitialDataContext } from '../../contexts/InitialDataContext';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -13,14 +13,11 @@ import ImagePopup from '../ImagePopup/ImagePopup';
 import { api } from '../../utils/api';
 
 function App() {
-  const [initialData, setInitialData] = useState([
-    {
-      name: 'Загрузка...',
-      about: 'Загрузка...',
-      avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
-    },
-    [],
-  ]);
+  const [currentUser, setCurrentUser] = useState({
+    name: 'Загрузка...',
+    about: 'Загрузка...',
+    avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
+  });
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -54,9 +51,10 @@ function App() {
 
   useEffect(() => {
     api
-      .getInitialData()
-      .then((resWithData) => {
-        setInitialData(resWithData);
+      .getUserInfo()
+      .then((userInfo) => {
+        console.log('Запрос прошёл!')
+        setCurrentUser(userInfo);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
@@ -65,14 +63,14 @@ function App() {
     <div className="page index-page">
       <Header />
 
-      <InitialDataContext.Provider value={initialData}>
+      <CurrentUserContext.Provider value={currentUser}>
         <Main
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
         />
-      </InitialDataContext.Provider>
+      </CurrentUserContext.Provider>
 
       <Footer />
 

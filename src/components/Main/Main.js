@@ -1,6 +1,10 @@
-import { useContext } from 'react';
-import { InitialDataContext } from '../../contexts/InitialDataContext';
+import { useContext, useEffect, useState } from 'react';
+
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 import Card from '../Card/Card';
+
+import { api } from '../../utils/api';
 
 export default function Main({
   onEditProfile,
@@ -8,17 +12,27 @@ export default function Main({
   onEditAvatar,
   onCardClick,
 }) {
-  const initialData = useContext(InitialDataContext);
+  const currentUser = useContext(CurrentUserContext);
 
-  const [{ name, about, avatar }, initialCardsData] = initialData;
+  const { name, about, avatar } = currentUser;
+  const [cards, setCards] = useState([]);
 
-  const cards = initialCardsData.map((item) => ({
-    key: item._id,
-    name: item.name,
-    link: item.link,
-    likes: item.likes,
-    owner: item.owner,
-  }));
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((initialCards) => {
+        setCards(
+          initialCards.map((item) => ({
+            key: item._id,
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+            owner: item.owner,
+          }))
+        );
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
 
   return (
     <main className="index-page__section content">
