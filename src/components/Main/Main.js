@@ -11,12 +11,13 @@ export default function Main({
   const initialData = useContext(InitialDataContext);
 
   const [{ name, about, avatar }, initialCardsData] = initialData;
-  
+
   const cards = initialCardsData.map((item) => ({
     key: item._id,
     name: item.name,
     link: item.link,
     likes: item.likes,
+    owner: item.owner,
   }));
 
   return (

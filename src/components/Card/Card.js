@@ -1,8 +1,22 @@
-export default function Card({ name, link, likes, onCardClick }) {
+import { useContext } from 'react';
+import { InitialDataContext } from '../../contexts/InitialDataContext';
+
+export default function Card({ owner, name, link, likes, onCardClick }) {
+  const initialData = useContext(InitialDataContext);
+  const currentUserId = initialData[0]._id;
+
+  const isOwn = owner._id === currentUserId;
+  const cardDeleteButtonClassName = `button place__delete-button 
+  ${isOwn ? 'place__delete-button_hidden' : 'place__delete-button_visible'}`;
+
+  const isLiked = likes.some((like) => like._id === currentUserId);
+  const cardLikeButtonClassName = `button place__like-button 
+  ${isLiked && 'place__like-button_active'}`;
+
   return (
     <li className="places__item place">
       <button
-        className="button place__delete-button"
+        className={cardDeleteButtonClassName}
         type="button"
         aria-label="Удалить элемент"
       ></button>
@@ -26,7 +40,7 @@ export default function Card({ name, link, likes, onCardClick }) {
         <p className="place__title">{name}</p>
         <div className="place__like-container">
           <button
-            className="button place__like-button"
+            className={cardLikeButtonClassName}
             type="button"
             aria-label="Поставить отметку «Мне нравится»"
           ></button>
