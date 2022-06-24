@@ -1,13 +1,25 @@
 import '../../index.css';
 
+import { useState, useEffect } from 'react';
+
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
-import { useState } from 'react';
+
+import { api } from '../../utils/api';
 
 function App() {
+  const [initialData, setInitialData] = useState(
+    {
+      name: 'Загрузка...',
+      about: 'Загрузка...',
+      avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
+    },
+    []
+  );
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -37,6 +49,17 @@ function App() {
 
     setSelectedCard(null);
   }
+
+  useEffect(() => {
+    api
+      .getInitialData()
+      .then((resWithData) => {
+        setInitialData(resWithData);
+        const [{ name, about, avatar }, initialCardsData] = resWithData;
+
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
 
   return (
     <div className="page index-page">
