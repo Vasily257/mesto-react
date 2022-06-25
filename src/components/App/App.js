@@ -9,6 +9,7 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 
 import { api } from '../../utils/api';
 
@@ -73,44 +74,12 @@ function App() {
 
       <Footer />
 
-      <PopupWithForm
-        name="edit"
-        title="Редактировать профиль"
-        submitButtonText="Сохранить"
-        isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
-      >
-        <p className="popup__field">
-          <label className="visually-hidden" htmlFor="name-input">
-            Имя
-          </label>
-          <input
-            className="popup__input popup__input_place_up"
-            id="name-input"
-            type="text"
-            name="name"
-            minLength="2"
-            maxLength="40"
-            required
-          />
-          <span className="name-input-error popup__error"></span>
-        </p>
-        <p className="popup__field">
-          <label className="visually-hidden" htmlFor="about-input">
-            Вид деятельности
-          </label>
-          <input
-            className="popup__input popup__input_place_down"
-            id="about-input"
-            type="text"
-            name="about"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="about-input-error popup__error"></span>
-        </p>
-      </PopupWithForm>
+      <CurrentUserContext.Provider value={currentUser}>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+        />
+      </CurrentUserContext.Provider>
 
       <PopupWithForm
         name="add"
