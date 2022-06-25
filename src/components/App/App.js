@@ -21,6 +21,8 @@ function App() {
     avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
   });
 
+  const [cards, setCards] = useState([]);
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -41,6 +43,28 @@ function App() {
 
   function handleCardClick(currentCard) {
     setSelectedCard(currentCard);
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((prevState) =>
+        prevState.map((prevCard) => {
+          return prevCard._id === card._id
+            ? { ...newCard, key: card._id }
+            : { ...prevCard, key: prevCard._id };
+        })
+      );
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((prevState) => {
+        return prevState.filter((prevCard) => prevCard._id !== card._id);
+      });
+    });
   }
 
   function handleUpdateUser(userInfo) {
@@ -78,6 +102,22 @@ function App() {
         setCurrentUser(userInfo);
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
+
+    api
+      .getInitialCards()
+      .then((initialCards) => {
+        setCards(
+          initialCards.map((item) => ({
+            key: item._id,
+            name: item.name,
+            link: item.link,
+            likes: item.likes,
+            owner: item.owner,
+            _id: item._id,
+          }))
+        );
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
 
   return (
@@ -89,7 +129,10 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
+          cards={cards}
           onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
       </CurrentUserContext.Provider>
 

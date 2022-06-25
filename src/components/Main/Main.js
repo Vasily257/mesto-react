@@ -1,61 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
-
+import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-
 import Card from '../Card/Card';
-
-import { api } from '../../utils/api';
 
 export default function Main({
   onEditProfile,
   onAddPlace,
   onEditAvatar,
+  cards,
   onCardClick,
+  onCardLike,
+  onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
-
   const { name, about, avatar } = currentUser;
-  const [cards, setCards] = useState([]);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((like) => like._id === currentUser._id);
-
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((prevState) =>
-        prevState.map((prevCard) => {
-          return prevCard._id === card._id
-            ? { ...newCard, key: card._id }
-            : { ...prevCard, key: prevCard._id };
-        })
-      );
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((prevState) => {
-        return prevState.filter((prevCard) => prevCard._id !== card._id);
-      });
-    });
-  }
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((initialCards) => {
-        setCards(
-          initialCards.map((item) => ({
-            key: item._id,
-            name: item.name,
-            link: item.link,
-            likes: item.likes,
-            owner: item.owner,
-            _id: item._id,
-          }))
-        );
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
 
   return (
     <main className="index-page__section content">
@@ -91,8 +48,8 @@ export default function Main({
             <Card
               {...cardElement}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>
