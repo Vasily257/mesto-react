@@ -21,13 +21,21 @@ export default function Main({
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
     api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((prevCard) =>
-        prevCard.map((prevCard) => {
+      setCards((prevState) =>
+        prevState.map((prevCard) => {
           return prevCard._id === card._id
             ? { ...newCard, key: card._id }
             : { ...prevCard, key: prevCard._id };
         })
       );
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then(() => {
+      setCards((prevState) => {
+        return prevState.filter((prevCard) => prevCard._id !== card._id);
+      });
     });
   }
 
@@ -84,6 +92,7 @@ export default function Main({
               {...cardElement}
               onCardClick={onCardClick}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </ul>

@@ -9,12 +9,13 @@ export default function Card({
   likes,
   onCardClick,
   onCardLike,
+  onCardDelete,
 }) {
   const currentUser = useContext(CurrentUserContext);
 
   const isOwn = owner._id === currentUser._id;
   const cardDeleteButtonClassName = `button place__delete-button 
-  ${isOwn ? 'place__delete-button_hidden' : 'place__delete-button_visible'}`;
+  ${isOwn ? 'place__delete-button_visible' : 'place__delete-button_hidden'}`;
 
   const isLiked = likes.some((like) => like._id === currentUser._id);
   const cardLikeButtonClassName = `button place__like-button 
@@ -26,6 +27,9 @@ export default function Card({
         className={cardDeleteButtonClassName}
         type="button"
         aria-label="Удалить элемент"
+        onClick={() => {
+          onCardDelete({ _id });
+        }}
       ></button>
       <div className="place__image-container">
         <button
