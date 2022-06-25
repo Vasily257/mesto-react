@@ -81,9 +81,9 @@ function App() {
       .editUserInfo(userInfo)
       .then((resWithUserInfo) => {
         setCurrentUser(resWithUserInfo);
+        closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`))
-      .finally(closeAllPopups());
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   function handleUpdateAvatar(avatar) {
@@ -91,9 +91,9 @@ function App() {
       .updateAvatar(avatar)
       .then((resWithAvatar) => {
         setCurrentUser(resWithAvatar);
+        closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`))
-      .finally(closeAllPopups());
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   function handleAddPlaceSubmit(popupData) {
@@ -101,9 +101,9 @@ function App() {
       .addNewCard(popupData)
       .then((newCard) => {
         setCards([{ ...newCard, key: newCard._id }, ...cards]);
+        closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`))
-      .finally(closeAllPopups());
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   useEffect(() => {

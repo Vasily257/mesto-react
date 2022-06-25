@@ -21,7 +21,6 @@
 @import url(../src/blocks/place/place.css);
 @import url(../src/blocks/place/__delete-button/place__delete-button.css);
 @import url(../src/blocks/place/__delete-button/_hidden/place__delete-button_hidden.css);
-@import url(../src/blocks/place/__delete-button/_visible/place__delete-button_visible.css);
 @import url(../src/blocks/place/__image-container/place__image-container.css);
 @import url(../src/blocks/place/__image/place__image.css);
 @import url(../src/blocks/place/__enlarge-button/place__enlarge-button.css);
