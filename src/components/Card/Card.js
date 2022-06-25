@@ -1,7 +1,15 @@
 import { useContext } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-export default function Card({ owner, name, link, likes, onCardClick }) {
+export default function Card({
+  _id,
+  owner,
+  name,
+  link,
+  likes,
+  onCardClick,
+  onCardLike,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   const isOwn = owner._id === currentUser._id;
@@ -41,7 +49,10 @@ export default function Card({ owner, name, link, likes, onCardClick }) {
           <button
             className={cardLikeButtonClassName}
             type="button"
-            aria-label="Поставить отметку «Мне нравится»"
+            aria-label="Изменить отметку «Мне нравится»"
+            onClick={() => {
+              onCardLike({ likes, _id });
+            }}
           ></button>
           <p className="place__like-counter">{likes.length}</p>
         </div>

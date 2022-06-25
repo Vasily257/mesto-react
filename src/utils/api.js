@@ -62,22 +62,22 @@ class Api {
     });
   }
 
-  putLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'PUT',
-      headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res, 'Лайк не добавлен');
-    });
-  }
-
-  deleteLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
-      method: 'DELETE',
-      headers: this._headers,
-    }).then((res) => {
-      return this._handleResponse(res, 'Лайк не убран');
-    });
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._url}/cards/${id}/likes`, {
+        method: 'DELETE',
+        headers: this._headers,
+      }).then((res) => {
+        return this._handleResponse(res, 'Лайк не убран');
+      });
+    } else {
+      return fetch(`${this._url}/cards/${id}/likes`, {
+        method: 'PUT',
+        headers: this._headers,
+      }).then((res) => {
+        return this._handleResponse(res, 'Лайк не добавлен');
+      });
+    }
   }
 
   updateAvatar(data) {

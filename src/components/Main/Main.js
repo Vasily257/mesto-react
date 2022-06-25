@@ -17,6 +17,20 @@ export default function Main({
   const { name, about, avatar } = currentUser;
   const [cards, setCards] = useState([]);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
+
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+      setCards((prevCard) =>
+        prevCard.map((prevCard) => {
+          return prevCard._id === card._id
+            ? { ...newCard, key: card._id }
+            : { ...prevCard, key: prevCard._id };
+        })
+      );
+    });
+  }
+
   useEffect(() => {
     api
       .getInitialCards()
@@ -28,6 +42,7 @@ export default function Main({
             link: item.link,
             likes: item.likes,
             owner: item.owner,
+            _id: item._id,
           }))
         );
       })
@@ -65,7 +80,11 @@ export default function Main({
       <section className="content__places places" aria-label="Посещенные места">
         <ul className="places__list">
           {cards.map((cardElement) => (
-            <Card {...cardElement} onCardClick={onCardClick} />
+            <Card
+              {...cardElement}
+              onCardClick={onCardClick}
+              onCardLike={handleCardLike}
+            />
           ))}
         </ul>
       </section>
