@@ -42,6 +42,16 @@ function App() {
     setSelectedCard(currentCard);
   }
 
+  function handleUpdateUser(userInfo) {
+    api
+      .editUserInfo(userInfo)
+      .then((resWithUserInfo) => {
+        setCurrentUser(resWithUserInfo);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(closeAllPopups());
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -78,6 +88,7 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
         />
       </CurrentUserContext.Provider>
 

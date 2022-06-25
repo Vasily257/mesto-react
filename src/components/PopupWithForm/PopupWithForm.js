@@ -4,6 +4,7 @@ export default function PopupWithForm({
   submitButtonText,
   isOpen,
   onClose,
+  onSubmit,
   children,
 }) {
   return (
@@ -13,6 +14,7 @@ export default function PopupWithForm({
         <form
           className={`popup__form popup__form_type_${name}`}
           name={name}
+          onSubmit={onSubmit}
           noValidate
         >
           {children}
