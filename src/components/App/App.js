@@ -11,6 +11,7 @@ import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
+import AddPlacePopup from '../AddPlacePopup/AddPlacePopup';
 
 import { api } from '../../utils/api';
 
@@ -67,6 +68,14 @@ function App() {
     });
   }
 
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsEditAvatarPopupOpen(false);
+
+    setSelectedCard(null);
+  }
+
   function handleUpdateUser(userInfo) {
     api
       .editUserInfo(userInfo)
@@ -87,12 +96,14 @@ function App() {
       .finally(closeAllPopups());
   }
 
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false);
-    setIsAddPlacePopupOpen(false);
-    setIsEditAvatarPopupOpen(false);
-
-    setSelectedCard(null);
+  function handleAddPlaceSubmit(popupData) {
+    api
+      .addNewCard(popupData)
+      .then((newCard) => {
+        setCards([{ ...newCard, key: newCard._id }, ...cards]);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(closeAllPopups());
   }
 
   useEffect(() => {
@@ -146,44 +157,11 @@ function App() {
         />
       </CurrentUserContext.Provider>
 
-      <PopupWithForm
-        name="add"
-        title="Новое место"
-        submitButtonText="Создать"
+      <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-      >
-        <p className="popup__field">
-          <label className="visually-hidden" htmlFor="place-input">
-            Название места
-          </label>
-          <input
-            className="popup__input popup__input_place_up"
-            id="place-input"
-            type="text"
-            name="place"
-            placeholder="Название"
-            minLength="2"
-            maxLength="30"
-            required
-          />
-          <span className="place-input-error popup__error"></span>
-        </p>
-        <p className="popup__field">
-          <label className="visually-hidden" htmlFor="link-input">
-            Ссылка
-          </label>
-          <input
-            className="popup__input popup__input_place_down"
-            id="link-input"
-            type="url"
-            name="link"
-            placeholder="Ссылка на картинку"
-            required
-          />
-          <span className="link-input-error popup__error"></span>
-        </p>
-      </PopupWithForm>
+        onAddPlace={handleAddPlaceSubmit}
+      />
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
