@@ -10,6 +10,7 @@ import Footer from '../Footer/Footer';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
+import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 
 import { api } from '../../utils/api';
 
@@ -47,6 +48,16 @@ function App() {
       .editUserInfo(userInfo)
       .then((resWithUserInfo) => {
         setCurrentUser(resWithUserInfo);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(closeAllPopups());
+  }
+
+  function handleUpdateAvatar(avatar) {
+    api
+      .updateAvatar(avatar)
+      .then((resWithAvatar) => {
+        setCurrentUser(resWithAvatar);
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
       .finally(closeAllPopups());
@@ -131,28 +142,11 @@ function App() {
         </p>
       </PopupWithForm>
 
-      <PopupWithForm
-        name="update-avatar"
-        title="Обновить аватар"
-        submitButtonText="Сохранить"
+      <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
-      >
-        <p className="popup__field">
-          <label className="visually-hidden" htmlFor="avatar-link-input">
-            Ссылка
-          </label>
-          <input
-            className="popup__input popup__input_place_up"
-            id="avatar-link-input"
-            type="url"
-            name="avatar-link"
-            placeholder="Ссылка на новый аватар"
-            required
-          />
-          <span className="avatar-link-input-error popup__error"></span>
-        </p>
-      </PopupWithForm>
+        onUpdateAvatar={handleUpdateAvatar}
+      />
 
       <PopupWithForm name="submit" title="Вы уверены?" submitButtonText="Да" />
 
