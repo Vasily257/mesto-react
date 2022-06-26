@@ -108,17 +108,14 @@ function App() {
 
   useEffect(() => {
     api
-      .getUserInfo()
-      .then((userInfo) => {
-        setCurrentUser(userInfo);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      .getInitialData()
+      .then((initialData) => {
+        const [userData, initialCardsData] = initialData;
 
-    api
-      .getInitialCards()
-      .then((initialCards) => {
+        setCurrentUser(userData);
+
         setCards(
-          initialCards.map((item) => ({
+          initialCardsData.map((item) => ({
             key: item._id,
             name: item.name,
             link: item.link,
