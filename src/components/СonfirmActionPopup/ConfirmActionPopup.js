@@ -1,13 +1,14 @@
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-export default function СonfirmActionPopup({
+export default function ConfirmActionPopup({
   isOpen,
   onClose,
-  onСonfirmAction,
+  card,
+  onConfirmAction,
 }) {
   function handleSubmit(event) {
     event.preventDefault();
-    onСonfirmAction();
+    onConfirmAction(card);
   }
 
   return (

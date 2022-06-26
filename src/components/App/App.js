@@ -1,17 +1,16 @@
 import '../../index.css';
 
 import { useState, useEffect } from 'react';
-
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
-import PopupWithForm from '../PopupWithForm/PopupWithForm';
 import ImagePopup from '../ImagePopup/ImagePopup';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 import AddPlacePopup from '../AddPlacePopup/AddPlacePopup';
+import ConfirmActionPopup from '../СonfirmActionPopup/ConfirmActionPopup';
 
 import { api } from '../../utils/api';
 
@@ -28,7 +27,11 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
+  const [isConfirmActionPopupOpen, setIsConfirmActionPopupOpen] =
+    useState(false);
+
   const [selectedCard, setSelectedCard] = useState(null);
+  const [deletedCard, setDeletedCard] = useState(null);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -60,20 +63,28 @@ function App() {
     });
   }
 
-  function handleCardDelete(card) {
+  function deleteCard(card) {
     api.deleteCard(card._id).then(() => {
       setCards((prevState) => {
         return prevState.filter((prevCard) => prevCard._id !== card._id);
       });
+      closeAllPopups();
     });
+  }
+
+  function handleCardDelete(deletedCard) {
+    setIsConfirmActionPopupOpen(true);
+    setDeletedCard(deletedCard);
   }
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsConfirmActionPopupOpen(false);
 
     setSelectedCard(null);
+    setDeletedCard(null);
   }
 
   function handleUpdateUser(userInfo) {
@@ -166,9 +177,12 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
       />
 
-
-
-      <PopupWithForm name="submit" title="Вы уверены?" submitButtonText="Да" />
+      <ConfirmActionPopup
+        isOpen={isConfirmActionPopupOpen}
+        onClose={closeAllPopups}
+        card={deletedCard}
+        onConfirmAction={deleteCard}
+      />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
     </div>
