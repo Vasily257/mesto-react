@@ -67,6 +67,8 @@ function App() {
   }
 
   function deleteCard(card) {
+    setIsSpinnerShown(true);
+
     api
       .deleteCard(card._id)
       .then(() => {
@@ -75,7 +77,10 @@ function App() {
         });
         closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => {
+        setIsSpinnerShown(false);
+      });
   }
 
   function handleCardDelete(deletedCard) {
@@ -94,37 +99,48 @@ function App() {
   }
 
   function handleUpdateUser(userInfo) {
+    setIsSpinnerShown(true);
+
     api
       .editUserInfo(userInfo)
       .then((resWithUserInfo) => {
         setCurrentUser(resWithUserInfo);
         closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => {
+        setIsSpinnerShown(false);
+      });
   }
 
   function handleUpdateAvatar(avatar) {
+    setIsSpinnerShown(true);
+
     api
       .updateAvatar(avatar)
       .then((resWithAvatar) => {
         setCurrentUser(resWithAvatar);
         closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => {
+        setIsSpinnerShown(false);
+      });
   }
 
   function handleAddPlaceSubmit(popupData) {
+    setIsSpinnerShown(true);
+
     api
       .addNewCard(popupData)
       .then((newCard) => {
         setCards([{ ...newCard, key: newCard._id }, ...cards]);
         closeAllPopups();
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }
-
-  function handleShowSpinner(isShow) {
-    setIsSpinnerShown(isShow);
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => {
+        setIsSpinnerShown(false);
+      });
   }
 
   useEffect(() => {
@@ -175,7 +191,6 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          onShowSpinner={handleShowSpinner}
         />
       </CurrentUserContext.Provider>
 
@@ -183,14 +198,12 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
-        onShowSpinner={handleShowSpinner}
       />
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
-        onShowSpinner={handleShowSpinner}
       />
 
       <ConfirmActionPopup
@@ -198,7 +211,6 @@ function App() {
         onClose={closeAllPopups}
         card={deletedCard}
         onConfirmAction={deleteCard}
-        onShowSpinner={handleShowSpinner}
       />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />

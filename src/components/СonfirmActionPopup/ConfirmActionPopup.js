@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
 export default function ConfirmActionPopup({
@@ -6,17 +5,11 @@ export default function ConfirmActionPopup({
   onClose,
   card,
   onConfirmAction,
-  onShowSpinner,
 }) {
   function handleSubmit(event) {
     event.preventDefault();
     onConfirmAction(card);
-    onShowSpinner(true);
   }
-
-  useEffect(() => {
-    return onShowSpinner(false);
-  });
 
   return (
     <PopupWithForm
