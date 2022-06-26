@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+export default function AddPlacePopup({
+  isOpen,
+  onClose,
+  onAddPlace,
+  onShowSpinner,
+}) {
   const [place, setplace] = useState('');
   const [link, setLink] = useState('');
 
@@ -16,7 +21,12 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   function handleSubmit(event) {
     event.preventDefault();
     onAddPlace({ name: place, link });
+    onShowSpinner(true);
   }
+
+  useEffect(() => {
+    return onShowSpinner(false);
+  });
 
   return (
     <PopupWithForm

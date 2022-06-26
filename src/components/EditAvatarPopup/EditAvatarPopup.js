@@ -1,7 +1,12 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
+export default function EditAvatarPopup({
+  isOpen,
+  onClose,
+  onUpdateAvatar,
+  onShowSpinner,
+}) {
   const avatarRef = useRef();
 
   function handleSubmit(event) {
@@ -9,7 +14,12 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
+    onShowSpinner(true);
   }
+
+  useEffect(() => {
+    return onShowSpinner(false);
+  });
 
   return (
     <PopupWithForm

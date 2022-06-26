@@ -34,7 +34,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [deletedCard, setDeletedCard] = useState(null);
 
-  const [loading, setLoading] = useState(false);
+  const [isSpinnerShown, setIsSpinnerShown] = useState(false);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -123,8 +123,12 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
+  function handleShowSpinner(isShow) {
+    setIsSpinnerShown(isShow);
+  }
+
   useEffect(() => {
-    setLoading(true);
+    setIsSpinnerShown(true);
 
     api
       .getInitialData()
@@ -145,7 +149,7 @@ function App() {
         );
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
-      .finally(() => setLoading(false));
+      .finally(() => setIsSpinnerShown(false));
   }, []);
 
   return (
@@ -171,6 +175,7 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          onShowSpinner={handleShowSpinner}
         />
       </CurrentUserContext.Provider>
 
@@ -178,12 +183,14 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
+        onShowSpinner={handleShowSpinner}
       />
 
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
+        onShowSpinner={handleShowSpinner}
       />
 
       <ConfirmActionPopup
@@ -191,11 +198,12 @@ function App() {
         onClose={closeAllPopups}
         card={deletedCard}
         onConfirmAction={deleteCard}
+        onShowSpinner={handleShowSpinner}
       />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
 
-      <Spinner isOpen={loading} />
+      <Spinner isOpen={isSpinnerShown} />
     </div>
   );
 }

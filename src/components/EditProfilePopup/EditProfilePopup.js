@@ -2,7 +2,12 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { useContext, useEffect, useState } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+export default function EditProfilePopup({
+  isOpen,
+  onClose,
+  onUpdateUser,
+  onShowSpinner,
+}) {
   const [name, setName] = useState('');
   const [about, setAbout] = useState('');
 
@@ -19,12 +24,15 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   function handleSubmit(event) {
     event.preventDefault();
     onUpdateUser({ name, about });
+    onShowSpinner(true);
   }
 
   useEffect(() => {
     setName(currentUser.name);
     setAbout(currentUser.about);
-  }, [currentUser]);
+
+    return onShowSpinner(false);
+  }, [currentUser, onShowSpinner]);
 
   return (
     <PopupWithForm
