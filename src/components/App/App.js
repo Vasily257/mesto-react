@@ -64,12 +64,15 @@ function App() {
   }
 
   function deleteCard(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((prevState) => {
-        return prevState.filter((prevCard) => prevCard._id !== card._id);
-      });
-      closeAllPopups();
-    });
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((prevState) => {
+          return prevState.filter((prevCard) => prevCard._id !== card._id);
+        });
+        closeAllPopups();
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   function handleCardDelete(deletedCard) {
