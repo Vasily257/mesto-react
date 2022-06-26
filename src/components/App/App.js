@@ -11,6 +11,7 @@ import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 import AddPlacePopup from '../AddPlacePopup/AddPlacePopup';
 import ConfirmActionPopup from '../СonfirmActionPopup/ConfirmActionPopup';
+import Spinner from '../Spinner/Spinner';
 
 import { api } from '../../utils/api';
 
@@ -32,6 +33,8 @@ function App() {
 
   const [selectedCard, setSelectedCard] = useState(null);
   const [deletedCard, setDeletedCard] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -121,6 +124,8 @@ function App() {
   }
 
   useEffect(() => {
+    setLoading(true);
+
     api
       .getInitialData()
       .then((initialData) => {
@@ -139,7 +144,8 @@ function App() {
           }))
         );
       })
-      .catch((error) => console.log(`Ошибка: ${error}`));
+      .catch((error) => console.log(`Ошибка: ${error}`))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -188,6 +194,8 @@ function App() {
       />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+
+      <Spinner isOpen={loading} />
     </div>
   );
 }

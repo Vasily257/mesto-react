@@ -50,3 +50,10 @@
 @import url(../src/blocks/popup/__submit-button/popup__submit-button.css);
 @import url(../src/blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css);
 @import url(../src/blocks/popup/__close-button/popup__close-button.css);
+@import url(../src/blocks/spinner/spinner.css);
+@import url(../src/blocks/spinner/_hidden/spinner_hidden.css);
+@import url(../src/blocks/spinner/__blob/spinner__blob.css);
+@import url(../src/blocks/spinner/__blob/_bottom/spinner__blob_bottom.css);
+@import url(../src/blocks/spinner/__blob/_left/spinner__blob_left.css);
+@import url(../src/blocks/spinner/__blob/_top/spinner__blob_top.css);
+@import url(../src/blocks/spinner/__blob/_move-blob/spinner__blob_move-blob.css);
