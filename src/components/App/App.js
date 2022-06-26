@@ -166,6 +166,8 @@ function App() {
         onUpdateAvatar={handleUpdateAvatar}
       />
 
+
+
       <PopupWithForm name="submit" title="Вы уверены?" submitButtonText="Да" />
 
       <ImagePopup card={selectedCard} onClose={closeAllPopups} />
