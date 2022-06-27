@@ -5,13 +5,15 @@ export default function PopupWithForm({
   isOpen,
   onClose,
   onSubmit,
+  onReset,
+  isValid,
   children,
 }) {
   return (
     <div
       className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}
       onClick={(event) => {
-        event.target === event.currentTarget && onClose();
+        event.target === event.currentTarget && onClose() && onReset();
       }}
     >
       <div className="popup__container">
@@ -23,7 +25,13 @@ export default function PopupWithForm({
           noValidate
         >
           {children}
-          <button className="button popup__submit-button" type="submit">
+          <button
+            className={`button popup__submit-button ${
+              isValid && 'popup__submit-button_disabled'
+            }`}
+            type="submit"
+            disabled={isValid}
+          >
             {submitButtonText}
           </button>
         </form>
@@ -33,6 +41,7 @@ export default function PopupWithForm({
           aria-label="Закрыть форму"
           onClick={() => {
             onClose();
+            onReset();
           }}
         ></button>
       </div>

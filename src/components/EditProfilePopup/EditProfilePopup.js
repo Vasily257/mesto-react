@@ -1,30 +1,32 @@
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
+import useForm from '../../blocks/hooks/useForm';
 
+export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
-  function handleChangeName(event) {
-    setName(event.target.value);
-  }
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+    setValues,
 
-  function handleChangeAbout(event) {
-    setAbout(event.target.value);
-  }
+    setIsValid,
+  } = useForm({ name: '', about: '' });
 
   function handleSubmit(event) {
     event.preventDefault();
-    onUpdateUser({ name, about });
+    onUpdateUser({ name: values.name, about: values.about });
   }
 
   useEffect(() => {
-    setName(currentUser.name);
-    setAbout(currentUser.about);
-  }, [currentUser]);
+    setValues({ name: currentUser.name, about: currentUser.about });
+    setIsValid(true);
+  }, [currentUser, setValues, setIsValid, isOpen]);
 
   return (
     <PopupWithForm
@@ -34,6 +36,8 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onReset={resetForm}
+      isValid={!isValid}
     >
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="name-input">
@@ -44,13 +48,19 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           id="name-input"
           type="text"
           name="name"
-          value={name}
-          onChange={handleChangeName}
+          value={values.name}
+          onChange={handleChange}
           minLength="2"
           maxLength="40"
           required
         />
-        <span className="name-input-error popup__error"></span>
+        <span
+          className={`name-input-error popup__error 
+          ${!isValid && 'popup__error_active'}
+          `}
+        >
+          {!isValid && errors.name}
+        </span>
       </p>
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="about-input">
@@ -61,13 +71,19 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           id="about-input"
           type="text"
           name="about"
-          value={about}
-          onChange={handleChangeAbout}
+          value={values.about}
+          onChange={handleChange}
           minLength="2"
           maxLength="200"
           required
         />
-        <span className="about-input-error popup__error"></span>
+        <span
+          className={`name-input-error popup__error 
+          ${!isValid && 'popup__error_active'}
+          `}
+        >
+          {!isValid && errors.about}
+        </span>
       </p>
     </PopupWithForm>
   );
