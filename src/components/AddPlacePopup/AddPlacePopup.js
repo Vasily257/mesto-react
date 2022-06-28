@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
-import useForm from '../../blocks/hooks/useForm';
+import useForm from '../../hooks/useForm';
 
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const {

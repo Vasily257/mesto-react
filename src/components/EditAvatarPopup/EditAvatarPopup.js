@@ -1,15 +1,28 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
+
+import useForm from '../../hooks/useForm';
 
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = useRef();
 
+  const { errors, isValid, handleChange, resetForm, setValues, setIsValid } =
+    useForm({ avatar: '' });
+
+  function clearInput() {
+    avatarRef.current.value = '';
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    onUpdateAvatar({
-      avatar: avatarRef.current.value,
-    });
+    onUpdateAvatar({ avatar: avatarRef.current.value });
+    clearInput();
   }
+
+  useEffect(() => {
+    setValues({ avatar: '' });
+    setIsValid(false);
+  }, [setValues, setIsValid, isOpen]);
 
   return (
     <PopupWithForm
@@ -19,21 +32,26 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onReset={(resetForm, clearInput)}
+      isValid={!isValid}
     >
       <p className="popup__field">
-        <label className="visually-hidden" htmlFor="avatar-link-input">
+        <label className="visually-hidden" htmlFor="avatar-input">
           Ссылка
         </label>
         <input
           className="popup__input popup__input_place_up"
-          id="avatar-link-input"
+          id="avatar-input"
           type="url"
-          name="avatar-link"
+          name="avatar"
           placeholder="Ссылка на новый аватар"
           ref={avatarRef}
+          onChange={handleChange}
           required
         />
-        <span className="avatar-link-input-error popup__error"></span>
+        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
+          {!isValid && errors.avatar}
+        </span>
       </p>
     </PopupWithForm>
   );
