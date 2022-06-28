@@ -1,22 +1,28 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from '../PopupWithForm/PopupWithForm';
 
+import useForm from '../../blocks/hooks/useForm';
+
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
-  const [place, setplace] = useState('');
-  const [link, setLink] = useState('');
-
-  function handleChangePlace(event) {
-    setplace(event.target.value);
-  }
-
-  function handleChangeLink(event) {
-    setLink(event.target.value);
-  }
+  const {
+    values,
+    errors,
+    isValid,
+    handleChange,
+    resetForm,
+    setValues,
+    setIsValid,
+  } = useForm({ place: '', link: '' });
 
   function handleSubmit(event) {
     event.preventDefault();
-    onAddPlace({ name: place, link });
+    onAddPlace({ name: values.place, link: values.link });
   }
+
+  useEffect(() => {
+    setValues({ place: '', link: '' });
+    setIsValid(false);
+  }, [setValues, setIsValid, isOpen]);
 
   return (
     <PopupWithForm
@@ -26,6 +32,8 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onReset={resetForm}
+      isValid={!isValid}
     >
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="place-input">
@@ -37,12 +45,15 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           type="text"
           name="place"
           placeholder="Название"
+          value={values.place}
+          onChange={handleChange}
           minLength="2"
           maxLength="30"
-          onChange={handleChangePlace}
           required
         />
-        <span className="place-input-error popup__error"></span>
+        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
+          {!isValid && errors.place}
+        </span>
       </p>
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="link-input">
@@ -54,10 +65,13 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           type="url"
           name="link"
           placeholder="Ссылка на картинку"
-          onChange={handleChangeLink}
+          value={values.link}
+          onChange={handleChange}
           required
         />
-        <span className="link-input-error popup__error"></span>
+        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
+          {!isValid && errors.link}
+        </span>
       </p>
     </PopupWithForm>
   );
