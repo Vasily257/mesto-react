@@ -9,11 +9,16 @@ export default function PopupWithForm({
   isValid,
   children,
 }) {
+  function closeAndResetPopup() {
+    onClose();
+    onReset();
+  }
+
   return (
     <div
       className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}
       onClick={(event) => {
-        event.target === event.currentTarget && onClose() && onReset();
+        event.target === event.currentTarget && closeAndResetPopup();
       }}
     >
       <div className="popup__container">
@@ -39,10 +44,7 @@ export default function PopupWithForm({
           className="button popup__close-button"
           type="button"
           aria-label="Закрыть форму"
-          onClick={() => {
-            onClose();
-            onReset();
-          }}
+          onClick={closeAndResetPopup}
         ></button>
       </div>
     </div>
