@@ -4,6 +4,9 @@ export default function ImagePopup({ card, onClose }) {
       className={`popup popup_darker popup_type_enlarge ${
         card && 'popup_opened'
       }`}
+      onClick={(event) => {
+        event.target === event.currentTarget && onClose();
+      }}
     >
       <figure className="popup__image-container">
         <button
