@@ -19,7 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     name: 'Загрузка...',
     about: 'Загрузка...',
-    avatar: 'https://pp.userapi.com/c5442/u17339201/-6/z_90119408.jpg',
+    avatar: 'https://dummyimage.com/120',
   });
 
   const [cards, setCards] = useState([]);
