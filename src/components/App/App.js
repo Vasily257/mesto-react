@@ -1,5 +1,3 @@
-import '../../index.css';
-
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -55,15 +53,18 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-      setCards((prevState) =>
-        prevState.map((prevCard) => {
-          return prevCard._id === card._id
-            ? { ...newCard, key: card._id }
-            : { ...prevCard, key: prevCard._id };
-        })
-      );
-    });
+    api
+      .changeLikeCardStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((prevState) =>
+          prevState.map((prevCard) => {
+            return prevCard._id === card._id
+              ? { ...newCard, key: card._id }
+              : { ...prevCard, key: prevCard._id };
+          })
+        );
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
   }
 
   function deleteCard(card) {
@@ -155,7 +156,6 @@ function App() {
 
         setCards(
           initialCardsData.map((item) => ({
-            key: item._id,
             name: item.name,
             link: item.link,
             likes: item.likes,

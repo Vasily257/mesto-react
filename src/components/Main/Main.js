@@ -47,6 +47,7 @@ export default function Main({
           {cards.map((cardElement) => (
             <Card
               {...cardElement}
+              key={cardElement._id}
               onCardClick={onCardClick}
               onCardLike={onCardLike}
               onCardDelete={onCardDelete}
