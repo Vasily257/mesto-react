@@ -32,10 +32,10 @@ export default function PopupWithForm({
           {children}
           <button
             className={`button popup__submit-button ${
-              isValid && 'popup__submit-button_disabled'
+              !isValid && 'popup__submit-button_disabled'
             }`}
             type="submit"
-            disabled={isValid}
+            disabled={!isValid}
           >
             {submitButtonText}
           </button>

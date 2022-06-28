@@ -37,7 +37,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       onReset={resetForm}
-      isValid={!isValid}
+      isValid={isValid}
     >
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="name-input">
@@ -73,8 +73,10 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           maxLength="200"
           required
         />
-        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
-          {!isValid && errors.about}
+        <span
+          className={`popup__error ${errors.about && 'popup__error_active'}`}
+        >
+          {errors.about}
         </span>
       </p>
     </PopupWithForm>

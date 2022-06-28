@@ -33,7 +33,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       onClose={onClose}
       onSubmit={handleSubmit}
       onReset={resetForm}
-      isValid={!isValid}
+      isValid={isValid}
     >
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="place-input">
@@ -51,8 +51,10 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           maxLength="30"
           required
         />
-        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
-          {!isValid && errors.place}
+        <span
+          className={`popup__error ${errors.place && 'popup__error_active'}`}
+        >
+          {errors.place}
         </span>
       </p>
       <p className="popup__field">
@@ -69,8 +71,10 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
           onChange={handleChange}
           required
         />
-        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
-          {!isValid && errors.link}
+        <span
+          className={`popup__error ${errors.link && 'popup__error_active'}`}
+        >
+          {errors.link}
         </span>
       </p>
     </PopupWithForm>

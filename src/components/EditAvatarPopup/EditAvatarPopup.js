@@ -32,8 +32,11 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      onReset={(resetForm, clearInput)}
-      isValid={!isValid}
+      onReset={() => {
+        resetForm();
+        clearInput();
+      }}
+      isValid={isValid}
     >
       <p className="popup__field">
         <label className="visually-hidden" htmlFor="avatar-input">
@@ -49,8 +52,10 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
           onChange={handleChange}
           required
         />
-        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
-          {!isValid && errors.avatar}
+        <span
+          className={`popup__error ${errors.avatar && 'popup__error_active'}`}
+        >
+          {errors.avatar}
         </span>
       </p>
     </PopupWithForm>
