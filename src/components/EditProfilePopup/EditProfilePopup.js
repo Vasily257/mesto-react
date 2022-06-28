@@ -54,11 +54,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           maxLength="40"
           required
         />
-        <span
-          className={`name-input-error popup__error 
-          ${!isValid && 'popup__error_active'}
-          `}
-        >
+        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
           {!isValid && errors.name}
         </span>
       </p>
@@ -77,11 +73,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
           maxLength="200"
           required
         />
-        <span
-          className={`name-input-error popup__error 
-          ${!isValid && 'popup__error_active'}
-          `}
-        >
+        <span className={`popup__error ${!isValid && 'popup__error_active'}`}>
           {!isValid && errors.about}
         </span>
       </p>
